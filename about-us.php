@@ -54,7 +54,7 @@ include("inc/header.php");
             echo "<p>No About Us information found.</p>";
           }
 
-        
+
           ?>
         </div>
 
@@ -279,30 +279,34 @@ include("inc/header.php");
         </div>
       </div>
       <div id="testimonial-carousel" class="owl-carousel owl-theme de_carousel wow fadeInUp" data-wow-delay=".3s">
-        <div class="item">
-          <div class="de_testi">
-            <blockquote>
-              <p>I recently had the privilege of collaborating with Ample Infra Reality as my real estate agent, and I must express that my encounter with them surpassed all of my anticipations. Right from the outset, they exhibited professionalism, expert knowledge, and a sincere commitment to assisting me in discovering my ideal property.</p>
-              <div class="de_testi_by">Saurav Singh</div>
-            </blockquote>
-          </div>
-        </div>
-        <div class="item">
-          <div class="de_testi">
-            <blockquote>
-              <p>The Ample Infra Reality team exhibited an impressive understanding of the real estate market in Delhi NCR. They invested the effort to grasp my individual requirements and preferences before presenting a selection of properties that aligned flawlessly with my criteria. Their meticulousness and comprehension of my needs streamlined the entire process, making it trouble-free and effortless.</p>
-              <div class="de_testi_by">Abhimanyu Saxena</div>
-            </blockquote>
-          </div>
-        </div>
-        <div class="item">
-          <div class="de_testi">
-            <blockquote>
-              <p>When in search of a dependable, reputable, and well-informed real estate agent in Delhi NCR, I wholeheartedly endorse Ample Infra Reality . Their level of expertise, professionalism, and individualized approach distinguishes them from their industry peers. I am confident that, just as they did for me, they will exceed your expectations in assisting you in discovering your dream property.</p>
-              <div class="de_testi_by">Viraj Gupta</div>
-            </blockquote>
-          </div>
-        </div>
+        <?php
+
+        $sql = "SELECT * FROM testimonials";
+        $result = $conn->query($sql);
+
+        // Check if testimonials exist
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+            $title = $row['title'];
+            $description = $row['description'];
+        ?>
+
+            <div class="item">
+              <div class="de_testi">
+                <blockquote>
+                  <?php echo $description  ?>
+                  <div class="de_testi_by"><?= $title  ?></div>
+                </blockquote>
+              </div>
+            </div>
+
+
+        <?php
+          }
+        } else {
+          echo "<p>No testimonials found!</p>";
+        }
+        ?>
 
       </div>
     </div>

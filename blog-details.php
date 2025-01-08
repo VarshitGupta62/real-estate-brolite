@@ -1,5 +1,33 @@
 ﻿<?php
 include("inc/header.php");
+
+// Get the 'id' parameter from the URL
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Check if the ID is valid
+if ($id <= 0) {
+  echo "Invalid Blog ID!";
+  exit;
+}
+
+// Database query to fetch the blog post by ID
+$sql = "SELECT * FROM blog WHERE id = '$id'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // Fetch the post data
+  $post = $result->fetch_assoc();
+
+  // Extract values from the post array
+  $title = $post['title'];
+  $description = $post['description'];
+  $shortDescription = strlen($description) > 350 ? substr($description, 0, 350) . '...' : $description;
+  $createdDay = date('d', strtotime($post['createdat']));
+  $createdMonth = date('F', strtotime($post['createdat']));
+} else {
+  echo "No blog post found!";
+  exit;
+}
 ?>
 <!-- content begin -->
 <div id="content" class="no-bottom no-top">
@@ -43,22 +71,14 @@ include("inc/header.php");
               </div>
 
               <div class="date-box" style="background-size: cover;">
-                <div class="day" style="background-size: cover;">15</div>
-                <div class="month">Jul</div>
+                <div class="day" style="background-size: cover;"><?= $createdDay ?></div>
+                <div class="month" style="background-size: cover; letter-spacing:0"><?= $createdMonth ?></div>
               </div>
               <div class="post-text" style="background-size: cover;">
                 <h3>
-                  <strong>Realty index at 10-year high: 7 stocks are still 10-80% lower than record highs – time to buy them?</strong>
+                  <strong> <?= $title ?></strong>
                 </h3>
-                <p>Real estate stocks are back on investors&rsquo; radar thanks to institutional and retail money pouring into the sector, which could turn out to be the Dark Horse of 2021, experts suggest.</p>
-
-                <p>The Nifty Realty Index, comprising of 10 real estate companies listed on the National Stock Exchange of India, hit a 10-year high (intraday) on Tuesday, putting the stocks in the spotlight after close to a decade of underperformance.</p>
-
-                <p>The factors that contributed to the stellar rise in realty stocks include work from home amid COVID-19, which pushed many families to buy big houses, low interest rates, lower stamp duty in some states, reduction of debt by companies, increase in demand for both commercial and retail property, and institutional investments.</p>
-
-                <p>&ldquo;On July 13, 2021, the realty index reached an intra-day high of 386.85 points, its highest level since December 2010. With several companies providing work-from-home options or mandates, families are rushing to purchase larger homes to improve the comfort of their working environment,&rdquo; said Gaurav Garg, head of research at CapitalVia Global Research Ltd. &ldquo;Furthermore, the central bank&rsquo;s significant interest rate cuts over the last two years, combined with efforts like stamp duty reductions in locations like Mumbai, have boosted demand.&rdquo;</p>
-
-                <p>&nbsp;</p>
+               <?= $description ?>
 
               </div>
             </div>

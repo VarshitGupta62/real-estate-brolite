@@ -123,6 +123,23 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="blog.php">
+                        <span class="nav-icon">
+                            <i class="fas fa-blog"></i>
+                        </span>
+                        <span class="nav-text">Manage Blog</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="testimonials.php">
+                        <span class="nav-icon">
+                            <i class="fas fa-comments"></i>
+                        </span>
+                        <span class="nav-text">Testimonials</span>
+                    </a>
+                </li>
+
 
 
 
@@ -191,7 +208,7 @@
                         <span class="nav-icon">
                             <i class="fas fa-question"></i> 
                         </span>
-                        <span class="nav-text">Manage FAQ</span>
+                        <span class="nav-text">Testimonials</span>
                     </a>
                 </li>
 
@@ -272,9 +289,9 @@
                             <li class="sub-nav-item">
                                 <a class="sub-nav-link" href="privacypolicy.php">Privacy Policy</a>
                             </li>
-                            <li class="sub-nav-item">
+                            <!-- <li class="sub-nav-item">
                                 <a class="sub-nav-link" href="emailmessage.php">Email Message</a>
-                            </li>
+                            </li> -->
                             <li class="sub-nav-item">
                                 <a class="sub-nav-link" href="footerimportantlink.php">Important Links</a>
                             </li>

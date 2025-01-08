@@ -2,18 +2,42 @@
 include("inc/header.php");
 ?>
 <!-- content begin -->
+<?php
+ 
+
+if (isset($_GET['id'])) {
+  $id = intval($_GET['id']); // Get the ID from the URL and ensure it's an integer
+
+  $sql = "SELECT * FROM services WHERE id = $id";
+  $result = $conn->query($sql);
+
+  if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $title = $row['title'];
+    $description = $row['description'];
+    $image = $row['image'];
+  } else {
+    echo "Service not found.";
+    exit;
+  }
+} else {
+  echo "Invalid service ID.";
+  exit;
+}
+?>
+
 <div id="content" class="no-bottom no-top">
-  <!-- revolution slider begin -->
+  <!-- Banner Section -->
   <section class="banner-sec">
     <div class="banner-img">
       <div class="overlay"></div>
-      <img src="assets/images/new/1.png" alt="">
+      <img src="admin/uploads/<?php echo $image; ?>" alt="<?php echo $title; ?>">
       <div class="banner-content inter-banner-content">
         <div class="container">
           <div class="row">
             <div class="col-md-12">
               <div class="banner-text inter-banner-text">
-                <h2>Legal Services</h2>
+                <h2><?php echo $title; ?></h2>
                 <span class="decor-equal"></span>
               </div>
             </div>
@@ -22,55 +46,27 @@ include("inc/header.php");
       </div>
     </div>
   </section>
-  <!-- revolution slider close -->
-  <div class="service-detail" id="content" style="background-size: cover;">
-    <div class="container" style="background-size: cover;">
-      <div class="row" style="background-size: cover;">
-        <div class="col-md-12" style="background-size: cover;">
-          <div class="blog-read" style="background-size: cover;">
-            <div class="post-content" style="background-size: cover;">
-              <div class="post-image" style="background-size: cover;">
-                <img src="#" alt="">
+
+  <!-- Service Detail Section -->
+  <div class="service-detail" id="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="blog-read">
+            <div class="post-content">
+              <div class="post-text">
+                <h3 class="varColor serviceTitle"><?php echo $title; ?></h3>
+                <p><?php echo nl2br($description); ?></p>
               </div>
-              <div class="post-text" style="background-size: cover;">
-                <h3 class="varColor serviceTitle">Legal Services</h3>
-
-                <p>Our Ample Infra Reality is your key to realizing the dream of owning your ideal home through our comprehensive home loan services. Nationwide, the availability of home loans has simplified property acquisition, providing essential financial support. With flexible repayment plans, many individuals prefer utilizing home loans to facilitate their home purchases.</p>
-
-                <p>Opting for a home loan allows individuals to fulfill their property ownership aspirations without bearing the entire burden of upfront costs. Recognizing the importance of finding the perfect home tailored to the unique desires of each potential homeowner, Ample Infra Reality, a trusted name in the real estate industry, offers specialized home loan services. Through these services, we aim to transform the dream of home ownership into a tangible reality for countless individuals and families across the country.</p>
-
-                <p>The popularity of home loans stems from their convenience in terms of repayment. Rather than depleting savings or waiting for years to accumulate sufficient funds, a home loan allows individuals to distribute the cost of the property over an extended period. This not only eases the financial burden but also facilitates effective budgeting and financial planning. Homebuyers can select a loan tenure that aligns with their financial capabilities, ensuring that monthly installments fit comfortably into their income framework.</p>
-
-                <p>Furthermore, home loans often come with competitive interest rates, making them an attractive option for potential buyers. Ample Infra Reality collaborates with leading financial institutions to secure favorable terms and interest rates for its customers, ensuring they receive the best possible deal. Additionally, some governments offer tax benefits on home loan repayments, further incentivizing individuals to opt for a home loan when purchasing a property.</p>
-
-                <p>Drawing on expertise in navigating the complexities of the real estate and financial markets, Ample Infra Reality guides customers seamlessly through the entire home buying process. From property selection to obtaining the right home loan, our team of professionals offers comprehensive assistance at every step. We take the time to understand the specific needs of each client, providing tailored solutions that align with their budget, location preferences, and future goals.</p>
-
-                <p>In the ever-evolving real estate market, Ample Infra Reality stays abreast of the latest trends and regulations, providing accurate and reliable information to customers. This commitment to transparency and ethical practices has earned the trust and loyalty of a vast customer base.</p>
-
-                <p>Ample Infra Reality&#39;s services extend beyond primary residential purchases to those interested in real estate for rental income or capital appreciation. Our team conducts in-depth market research and analysis to identify investment-worthy properties, guiding investors toward opportunities that align with their financial objectives.</p>
-
-                <p>In conclusion, Ample Infra Reality&#39;s home loans have transformed the real estate landscape, making homeownership feasible for countless individuals. Through hassle-free repayment plans, competitive interest rates, and expert guidance, Ample Infra Reality empowers prospective homebuyers, assisting them in finding the perfect property. Whether you&#39;re a first-time homebuyer or an experienced investor, Ample Infra Reality is your reliable partner on the journey to homeownership and financial growth.</p>
-
-                <p>&nbsp;</p>
-
-                <div class="service_images">
-                  <div class="row">
-
-
-
-                  </div>
-                </div>
-
-              </div>
-
             </div>
-            <div class="spacer-single" style="background-size: cover;"></div>
+            <div class="spacer-single"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <!-- testimonials section -->
 
 <section id="section-testimonial" class="text-light">

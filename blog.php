@@ -1,5 +1,19 @@
 ﻿<?php
 include("inc/header.php");
+
+// Fetch data from the blog table
+$sql = "SELECT * FROM blog";
+$result = $conn->query($sql);
+
+// Store blog posts in an array
+$posts = [];
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $posts[] = $row;
+  }
+} else {
+  echo "No blog posts found!";
+}
 ?>
 <!-- content begin -->
 <div id="content" class="no-bottom no-top">
@@ -36,91 +50,41 @@ include("inc/header.php");
         <div class="col-md-8" style="background-size: cover;">
           <ul class="blog-list">
 
-            <li>
-              <div class="post-content" style="background-size: cover;">
-                <div class="post-image" style="background-size: cover;">
+            <?php
+            // Loop through each post and display it
+            foreach ($posts as $post) {
+              // Extract values from the post array
+              $id = $post['id'];
+              $title = $post['title'];
+              $description = $post['description'];
+              $shortDescription = strlen($description) > 350 ? substr($description, 0, 350) . '...' : $description;
+              $createdat = date('d', strtotime($post['createdat']));  // Format date to '14 July'
+              $month = date('F', strtotime($post['createdat']));  // Format date to '14 July'
+            ?>
+              <li>
+                <div class="post-content" style="background-size: cover;">
+                  <div class="post-image" style="background-size: cover;">
 
+                  </div>
+                  <div class="date-box" style="background-size: cover;">
+                    <div class="day" style="background-size: cover;"><?= $createdat ?></div>
+                    <div class="month" style="background-size: cover; letter-spacing:0"><?= $month ?></div>
+                  </div>
+                  <div class="post-text" style="background-size: cover;">
+                    <h3><a href="blog-details.php?id=<?= $id ?>"><?= $title ?></a></h3>
+                    <?= $shortDescription  ?>
+                  </div>
+                  <a href="blog-details.php?id=<?= $id ?>" class="btn-more">Read More</a>
                 </div>
-                <div class="date-box" style="background-size: cover;">
-                  <div class="day" style="background-size: cover;">14</div>
-                  <div class="month" style="background-size: cover; letter-spacing:0">July</div>
-                </div>
-                <div class="post-text" style="background-size: cover;">
-                  <h3><a href="#">Have a problem with your real estate builder? Here’s how RERA can help</a></h3>
-                  It’s been more than five years since the Real Estate (regulation and development) Act 2016 was enacted. However, another year’s time was given to various state governments for drafting rules, setting up appellate tribunals, appointing officers and operationalizing websites and other provisions. Ultimately, the Act was implemented from May 1, 2017. Since then, a number of cases have been filed and disposed by various authorities at the state level. As a home buyer, using RERA’s guiding hand for resolving your complaints against builders or to search for information to can be helpful.
-                </div>
-                <a href="blog-details.php.html?id=45" class="btn-more">Read More</a>
-              </div>
-            </li>
-            <li>
-              <div class="post-content" style="background-size: cover;">
-                <div class="post-image" style="background-size: cover;">
+              </li>
 
-                </div>
-                <div class="date-box" style="background-size: cover;">
-                  <div class="day" style="background-size: cover;">15</div>
-                  <div class="month" style="background-size: cover; letter-spacing:0">July</div>
-                </div>
-                <div class="post-text" style="background-size: cover;">
-                  <h3><a href="#">Realty index at 10-year high: 7 stocks are still 10-80% lower than record highs – time to buy them?</a></h3>
-                  The real estate sector could turn out to be the Dark Horse of 2021 and barring the possibility of a third wave of the pandemic, realty stocks can continue their run-up
-
-                  Real estate stocks are back on investors’ radar thanks to institutional and retail money pouring into the sector, which could turn out to be the Dark Horse of 2021, experts suggest.
-                </div>
-                <a href="blog-details.php-1.html?id=46" class="btn-more">Read More</a>
-              </div>
-            </li>
-            <li>
-              <div class="post-content" style="background-size: cover;">
-                <div class="post-image" style="background-size: cover;">
-
-                </div>
-                <div class="date-box" style="background-size: cover;">
-                  <div class="day" style="background-size: cover;">15</div>
-                  <div class="month" style="background-size: cover; letter-spacing:0">July</div>
-                </div>
-                <div class="post-text" style="background-size: cover;">
-                  <h3><a href="#">Delhi-NCR gets more luxury houses: 17% of total housing units launched in the last 6 months are luxury</a></h3>
-                  Amid pandemic, investments in residential real estate is now looked at as a trend with more people buying houses. It’s not just affordable housing that people are looking at, but sales of luxury and ultra-luxury houses (having prices above Rs 1.5 crore) have increased.
-                </div>
-                <a href="blog-details.php-2.html?id=48" class="btn-more">Read More</a>
-              </div>
-            </li>
-            <li>
-              <div class="post-content" style="background-size: cover;">
-                <div class="post-image" style="background-size: cover;">
-
-                </div>
-                <div class="date-box" style="background-size: cover;">
-                  <div class="day" style="background-size: cover;">16</div>
-                  <div class="month" style="background-size: cover; letter-spacing:0">July</div>
-                </div>
-                <div class="post-text" style="background-size: cover;">
-                  <h3><a href="#">High raw material cost to drive up NCR realty prices by 20%</a></h3>
-                  Home builders in the National Capital Region (NCR) said they might have to raise apartment prices by up to a fifth as steel and cement costs have risen 30-55%, making it more difficult for the companies to sell flats without baking in higher input expenses.
-                </div>
-                <a href="blog-details.php-3.html?id=49" class="btn-more">Read More</a>
-              </div>
-            </li>
-            <li>
-              <div class="post-content" style="background-size: cover;">
-                <div class="post-image" style="background-size: cover;">
-
-                </div>
-                <div class="date-box" style="background-size: cover;">
-                  <div class="day" style="background-size: cover;">17</div>
-                  <div class="month" style="background-size: cover; letter-spacing:0">July</div>
-                </div>
-                <div class="post-text" style="background-size: cover;">
-                  <h3><a href="#">PM Narendra Modi likely to lay foundation stone of Jewar Airport next month</a></h3>
-                  In a virtual ceremony on Saturday, UP CM Yogi Adityanath sanctioned the handing over of 1,334 hectares of land to Noida International Airport Ltd (NIAL) under a 90-year land lease agreement Construction of the Jewar international airport received the green signal with the Uttar Pradesh government signing the land lease agreement on Saturday.
-                </div>
-                <a href="blog-details.php-4.html?id=52" class="btn-more">Read More</a>
-              </div>
-            </li>
+            <?php
+            }
+            ?>
 
 
           </ul>
+
 
           <!--  <div class="text-center" style="background-size: cover;">
                             <ul class="pagination">
@@ -174,30 +138,35 @@ include("inc/header.php");
         </div>
       </div>
       <div id="testimonial-carousel" class="owl-carousel owl-theme de_carousel wow fadeInUp" data-wow-delay=".3s">
-        <div class="item">
-          <div class="de_testi">
-            <blockquote>
-              <p>I recently had the privilege of collaborating with Ample Infra Reality as my real estate agent, and I must express that my encounter with them surpassed all of my anticipations. Right from the outset, they exhibited professionalism, expert knowledge, and a sincere commitment to assisting me in discovering my ideal property.</p>
-              <div class="de_testi_by">Saurav Singh</div>
-            </blockquote>
-          </div>
-        </div>
-        <div class="item">
-          <div class="de_testi">
-            <blockquote>
-              <p>The Ample Infra Reality team exhibited an impressive understanding of the real estate market in Delhi NCR. They invested the effort to grasp my individual requirements and preferences before presenting a selection of properties that aligned flawlessly with my criteria. Their meticulousness and comprehension of my needs streamlined the entire process, making it trouble-free and effortless.</p>
-              <div class="de_testi_by">Abhimanyu Saxena</div>
-            </blockquote>
-          </div>
-        </div>
-        <div class="item">
-          <div class="de_testi">
-            <blockquote>
-              <p>When in search of a dependable, reputable, and well-informed real estate agent in Delhi NCR, I wholeheartedly endorse Ample Infra Reality. Their level of expertise, professionalism, and individualized approach distinguishes them from their industry peers. I am confident that, just as they did for me, they will exceed your expectations in assisting you in discovering your dream property.</p>
-              <div class="de_testi_by">Viraj Gupta</div>
-            </blockquote>
-          </div>
-        </div>
+        <?php
+
+        $sql = "SELECT * FROM testimonials";
+        $result = $conn->query($sql);
+
+        // Check if testimonials exist
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+            $title = $row['title'];
+            $description = $row['description'];
+        ?>
+
+            <div class="item">
+              <div class="de_testi">
+                <blockquote>
+                  <?php echo $description  ?>
+                  <div class="de_testi_by"><?= $title  ?></div>
+                </blockquote>
+              </div>
+            </div>
+
+
+        <?php
+          }
+        } else {
+          echo "<p>No testimonials found!</p>";
+        }
+        ?>
+        
 
       </div>
     </div>

@@ -33,69 +33,23 @@ include("inc/header.php");
     <div class="container">
       <div class="">
         <div class="row">
-          <div class="col-md-4 wow fadeInUp">
-            <div class="service-page-inner">
-              <img src="admin/uploads/awards/work-culture-925302474.jpg" class="img-fluid w-100">
+          <?php
+         $sql = "SELECT * FROM `carousel` ORDER BY `id` DESC";
+          $result = $conn->query($sql);
 
-
-
-
-            </div>
-          </div>
-          <div class="col-md-4 wow fadeInUp">
-            <div class="service-page-inner">
-              <img src="admin/uploads/awards/work-culture-383393252.jpg" class="img-fluid w-100">
-
-
-
-
-            </div>
-          </div>
-          <div class="col-md-4 wow fadeInUp">
-            <div class="service-page-inner">
-              <img src="admin/uploads/awards/work-culture-168900498.jpg" class="img-fluid w-100">
-
-
-
-
-            </div>
-          </div>
-          <div class="col-md-4 wow fadeInUp">
-            <div class="service-page-inner">
-              <img src="admin/uploads/awards/work-culture-624164294.jpg" class="img-fluid w-100">
-
-
-
-
-            </div>
-          </div>
-          <div class="col-md-4 wow fadeInUp">
-            <div class="service-page-inner">
-              <img src="admin/uploads/awards/work-culture-1548046940.jpg" class="img-fluid w-100">
-
-
-
-
-            </div>
-          </div>
-          <div class="col-md-4 wow fadeInUp">
-            <div class="service-page-inner">
-              <img src="admin/uploads/awards/work-culture-261341635.jpg" class="img-fluid w-100">
-
-
-
-
-            </div>
-          </div>
-          <div class="col-md-4 wow fadeInUp">
-            <div class="service-page-inner">
-              <img src="admin/uploads/awards/work-culture-1408789880.jpg" class="img-fluid w-100">
-
-
-
-
-            </div>
-          </div>
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              $imagePath = 'admin/uploads/' . $row['Image'];
+              echo '<div class="col-md-4 wow fadeInUp">';
+              echo '  <div class="service-page-inner">';
+              echo '    <img src="' . $imagePath . '" class="img-fluid w-100">';
+              echo '  </div>';
+              echo '</div>';
+            }
+          } else {
+            echo '<p>No images found.</p>';
+          }
+          ?>
 
         </div>
       </div>

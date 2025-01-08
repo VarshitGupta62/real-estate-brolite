@@ -39,18 +39,33 @@ include("inc/header.php");
             </h2>
           </div>
           <div class="contact-text">
-            <h4> Ample Infra Reality</h4>
-            <p>1702 A, Logix Mall, sector 32 noida uttar pradesh - 201301</p>
-            <h5><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;+91-99106 14330</h5>
-            <h5><i class="fa fa-envelope-open-o" aria-hidden="true"></i>&nbsp;Support@ampleinfrareality.in</h5>
-            <h5><i class="fa fa-globe" aria-hidden="true"></i>&nbsp; <a href="https://ampleinfrareality.in/">https://ampleinfrareality.in/</a> </h5>
+            <address>
+              <?php
+              // Fetch contact details from the database
+              $sql = "SELECT * FROM contactus WHERE id = 1";
+              $result = $conn->query($sql);
+
+              // Check if record exists
+              if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+
+                // Display contact details
+                echo '<div>';
+                echo '<b>Ample Infra Reality</b><br>';
+                echo htmlspecialchars($row['address']) . '';
+                echo '<span><strong>Phone:</strong> <a href="tel:' . htmlspecialchars($row['number']) . '">' . htmlspecialchars($row['number']) . '</a></span>';
+                echo '<span><strong>Email:</strong> <a href="mailto:' . htmlspecialchars($row['email']) . '">' . htmlspecialchars($row['email']) . '</a></span>';
+                echo '<span><strong>Web:</strong> <a href="' . htmlspecialchars($row['time']) . '" target="_blank">' . htmlspecialchars($row['time']) . '</a></span>';
+                echo '</div>';
+              } else {
+                echo "<p>No contact details found.</p>";
+              }
+
+
+              ?>
+            </address>
           </div>
-          <!-- <br><br>
-                            <div class="newsletter-form">
-                                <h3>SUBSCRIBE TO NEWSLETTER</h3>
-                                <input type="email" placeholder="Enter Your Email Address" required="" class="frm">
-                                <input type="submit" value="Subscribe" class="btn">
-                            </div> -->
+
         </div>
         <div class="col-md-6 wow fadeInRight">
           <div class="why-us-sec">

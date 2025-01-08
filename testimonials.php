@@ -1,6 +1,12 @@
 ﻿<?php
 include("inc/header.php");
 ?>
+
+<style>
+  p{
+    color: black ;
+  }
+</style>
 <!-- content begin -->
 <div id="content" class="no-bottom no-top">
 
@@ -39,39 +45,37 @@ include("inc/header.php");
       </div>
 
       <div class="row">
-        <div class="col-md-6 testimonial_box">
-          <div class="box">
-            <div class="left">
-              <img src="assets/images/icon/quote.png" alt="quote " class="quote_icon">
+        <?php
+
+        $sql = "SELECT * FROM testimonials";
+        $result = $conn->query($sql);
+
+        // Check if testimonials exist
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+            $title = $row['title'];
+            $description = $row['description'];
+        ?>
+
+            <!-- Dynamic Testimonial Box -->
+            <div class="col-md-6 testimonial_box">
+              <div class="box">
+                <div class="left">
+                  <img src="assets/images/icon/quote.png" alt="quote " class="quote_icon">
+                </div>
+                <div class="right">
+                    <p><?= $description ?></p>
+                  <p class="name"><?= $title ?></p>
+                </div>
+              </div>
             </div>
-            <div class="right">
-              <p class="description">I recently had the privilege of collaborating with Ample Infra Reality as my real estate agent, and I must express that my encounter with them surpassed all of my anticipations. Right from the outset, they exhibited professionalism, expert knowledge, and a sincere commitment to assisting me in discovering my ideal property.</p>
-              <p class="name">Saurav Singh</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 testimonial_box">
-          <div class="box">
-            <div class="left">
-              <img src="assets/images/icon/quote.png" alt="quote " class="quote_icon">
-            </div>
-            <div class="right">
-              <p class="description">The Ample Infra Reality team exhibited an impressive understanding of the real estate market in Delhi NCR. They invested the effort to grasp my individual requirements and preferences before presenting a selection of properties that aligned flawlessly with my criteria. Their meticulousness and comprehension of my needs streamlined the entire process, making it trouble-free and effortless.</p>
-              <p class="name">Abhimanyu Saxena</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 testimonial_box">
-          <div class="box">
-            <div class="left">
-              <img src="assets/images/icon/quote.png" alt="quote " class="quote_icon">
-            </div>
-            <div class="right">
-              <p class="description">When in search of a dependable, reputable, and well-informed real estate agent in Delhi NCR, I wholeheartedly endorse Ample Infra Reality. Their level of expertise, professionalism, and individualized approach distinguishes them from their industry peers. I am confident that, just as they did for me, they will exceed your expectations in assisting you in discovering your dream property.</p>
-              <p class="name">Viraj Gupta</p>
-            </div>
-          </div>
-        </div>
+
+        <?php
+          }
+        } else {
+          echo "<p>No testimonials found!</p>";
+        }
+        ?>
       </div>
     </div>
   </section>
